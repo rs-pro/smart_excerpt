@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/smart_excerpt.svg)](http://badge.fury.io/rb/smart_excerpt)
+
 # SmartExcerpt
 
 Allows to create intellegent excerpt fields.
