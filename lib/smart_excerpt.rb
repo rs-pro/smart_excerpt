@@ -1,4 +1,5 @@
 require "smart_excerpt/version"
+require 'htmlentities'
 
 module SmartExcerpt
   class Helper
