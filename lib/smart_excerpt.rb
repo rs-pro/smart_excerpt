@@ -1,38 +1,18 @@
 require "smart_excerpt/version"
 require 'htmlentities'
+require "smart_excerpt/util"
+require "smart_excerpt/helper"
 
 module SmartExcerpt
-  class Helper
-    include ActionView::Helpers::TextHelper
-
-    def smart_truncate(s, opts = {})
-      return '' if s.blank?
-      opts = {words: 25}.merge(opts)
-      if opts[:sentences]
-        return s.split(/\.(\s|$)+/)[0, opts[:sentences]].map{|s| s.strip}.join('. ') + '.'
-      end
-      if opts[:letters]
-        return truncate(s, length: opts[:letters], separator: ' ', omission: '...')
-      end
-      n = opts[:words]
-      if n === Float::INFINITY
-        return s
-      end
-      a = s.split(/\s/) # or /[ ]+/ to only split on spaces
-      r = a[0...n].join(' ') + (a.size > n ? '...' : '')
-
-      # replace &nbsp; with regular spaces
-      r.gsub!(' ', ' ')
-
-      # strip newlines
-      r = r.strip.gsub("\r", '').gsub("\n", ' ')
-
-      r.gsub(/\s+/, ' ')
-    end
-  end
+  extend Util
 
   @@h = Helper.new
   @@he = HTMLEntities.new
+
+  def self.included(base)
+    base.send(:extend, ClassMethods)
+  end
+
 
   def smart_truncate(obj, base_field, excerpt_field, words)
     trust_multiplier = 1.2
@@ -81,34 +61,6 @@ module SmartExcerpt
     end
   end
 
-  def self.included(base)
-    base.send(:extend, ClassMethods)
-    base.send(:include, InstanceMethods)
-  end
-
-  def self.decode(str)
-    @@he.decode(str)
-  end
-
-  def self.encode(str)
-    @@he.encode(str)
-  end
-
-  def self.strip_tags(str)
-    @@h.strip_tags(str)
-  end
-
-  def self.decode_and_strip(str)
-    self.strip_tags(self.decode(str))
-  end
-
-  def self.truncate(str, opts = {})
-    return '' if str.blank?
-    tx = str.gsub(/<h\d[^>]*?>(.*)<\/h\d>/mi, '').gsub("\n", ' ').gsub("\r", '').gsub("\t", '').strip
-    tx = @@he.decode(tx)
-    tx = @@h.strip_tags(tx)
-    @@h.smart_truncate(tx, opts)
-  end
 
   module ClassMethods
     def smart_excerpt(excerpt_field, base_field, words = 25)
