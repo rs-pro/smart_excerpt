@@ -43,6 +43,8 @@ Then display excerpt:
 
     Article.first.get_excerpt
 
+All excerpts are passed through strip_tags and html entity decode.
+
 ## Options
 
     Article.first.get_excerpt(25) # same as {words: 25}
@@ -53,8 +55,6 @@ Then display excerpt:
     Article.first.get_excerpt(keep_headers: true) # do not remove HTML headers from excerpt
     Article.first.get_excerpt(keep_newlines: true) # do not remove newlines from excerpt
     Article.first.get_excerpt(keep_html: true) # do not remove HTML tags from excerpt (might be unsafe/dangerous!)
-
-All excerpts are passed through strip_tags and html entity decode.
 
 ## Contributing
 
