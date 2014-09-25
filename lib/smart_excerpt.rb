@@ -3,14 +3,13 @@ require 'htmlentities'
 require "smart_excerpt/util"
 require "smart_excerpt/helper"
 
-module smartexcerpt
+module SmartExcerpt
   extend Util
 
   @@h = Helper.new
   @@he = HTMLEntities.new
   mattr_reader :h
   mattr_reader :he
-
 
   def self.included(base)
     base.send(:extend, ClassMethods)
