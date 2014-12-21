@@ -16,6 +16,10 @@ module SmartExcerpt
       self.strip_tags(self.decode(str))
     end
 
+    def simple_format(str)
+      SmartExcerpt.h.simple_format(str)
+    end
+
     def truncate(str, opts = {})
       return '' if str.blank?
       tx = str.gsub(/<h\d[^>]*?>(.*)<\/h\d>/mi, '').gsub("\n", ' ').gsub("\r", '').gsub("\t", '').strip
