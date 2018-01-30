@@ -60,7 +60,7 @@ All excerpts are passed through strip_tags and html entity decode.
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/smart_excerpt/fork )
+1. Fork it ( https://github.com/rs-pro/smart_excerpt/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
