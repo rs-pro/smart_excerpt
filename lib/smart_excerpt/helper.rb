@@ -6,7 +6,7 @@ module SmartExcerpt
       return '' if s.blank?
       opts = {words: 25}.merge(opts)
       if opts[:sentences]
-        return s.split(/\.(\s|$)+/).delete_if {|s| s == ' '}[0, opts[:sentences]].map{|s| s.strip}.join('. ') + '.'
+        return s.split(/\.(\s|$)+/).delete_if {|s| s.blank? }[0, opts[:sentences]].map{|s| s.strip}.join('. ') + '.'
       end
       if opts[:letters]
         return truncate(s, length: opts[:letters], separator: ' ', omission: '...')
