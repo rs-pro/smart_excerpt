@@ -26,13 +26,13 @@ module SmartExcerpt
       tx = obj.send(base_field)
     else
       tx = obj.send(excerpt_field)
-      if words.is_a?(Fixnum)
+      if words.is_a?(Numeric)
         words *= trust_multiplier
       elsif words.is_a?(Hash)
         if words[:trust_excerpts]
           words = {words: Float::INFINITY}
         else
-          words = Hash[words.map {|k, v| [k, v.is_a?(Fixnum) ? (v * trust_multiplier).to_i : v] }]
+          words = Hash[words.map {|k, v| [k, v.is_a?(Numeric) ? (v * trust_multiplier).to_i : v] }]
         end
       end
     end
